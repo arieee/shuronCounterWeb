@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+    
+    // Load the Visualization API and the piechart package.
+    google.load('visualization', '1', {'packages':['corechart']});
+      
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.setOnLoadCallback(drawChart);
+      
+    function drawChart() {
+      var jsonData = $.ajax({
+          url: "getData.php",
+          dataType:"json",
+          async: false
+          }).responseText;
+          
+      // Create our data table out of JSON data loaded from server.
+      var data = new google.visualization.DataTable(jsonData);
+
+      // Instantiate and draw our chart, passing in some options.
+    //var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+    //chart.draw(data, {width: 400, height: 240});
+    chart.draw(data, {width: 1100, height: 600, hAxis:{title:"datetime"},vAxis:{title:"#characters"}});
+    }
+
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="shuron.css">
+
+  </head>
+
+  <body>
+    <div id="header">
+    修論進捗
+    </div>
+    <!--Div that will hold the line chart-->
+    <div id="chart_div"></div>
+    <div id="introduction">
+      <p>毎日0時，6時，12時，18時の4回更新</p>
+    </div>
+    
+    <div id="attention">
+      <p>(更新履歴)</p>
+      <p>2015.1.21 作成</p>
+      <p>2015.2.2 1日4回の更新に変更</p>
+      <p>2015.2.4 1日8回の更新に変更</p>
+      <p>2015.2.11 まだ戦いは終わってなかった…</p>
+      <p></p>
+    </div>
+  </body>
+</html>
